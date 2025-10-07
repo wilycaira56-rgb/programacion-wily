@@ -1,95 +1,582 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carátula - Universidad Nacional del Altiplano</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programación Numérica - Wily Calib Caira</title>
   <style>
-    :root{--accent:#0b5ed7;--muted:#6b7280;--paper:#ffffff}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f3f4f6}
-    .page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{width:900px;max-width:100%;background:var(--paper);padding:48px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.08);text-align:center}
-    .logo{height:90px;width:90px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:inline-flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;margin-bottom:18px}
-    h1{font-size:20px;margin:6px 0;color:#111827}
-    h2{font-size:16px;margin:4px 0;color:var(--muted);font-weight:600}
-    .big-title{font-size:28px;font-weight:700;margin:18px 0 8px}
-    .info{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
-    .info .left{grid-column:1/3}
-    .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
-    .value{font-size:15px;font-weight:600;color:#0f172a}
-    .footer{margin-top:28px;color:var(--muted);font-size:14px}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    /* sección de tareas */
-    .tasks{margin-top:40px;text-align:left}
-    .tasks h3{font-size:20px;margin-bottom:12px;color:#0f172a}
-    .task-list{list-style:none;padding:0}
-    .task-list li{margin-bottom:10px}
-    .task-list a{color:var(--accent);font-weight:600;text-decoration:none}
-    .task-list a:hover{text-decoration:underline}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
+      background-attachment: fixed;
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #333;
+      min-height: 100vh;
+      padding: 20px 0;
+    }
 
-    @media (max-width:640px){.info{grid-template-columns:1fr}.logo{height:72px;width:72px}}
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER CON LOGO */
+    header {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 3px solid #1e3c72;
+    }
+
+    .logo-container {
+      flex-shrink: 0;
+    }
+
+    .logo-unap {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #1e3c72;
+      object-fit: contain;
+      background: white;
+      padding: 5px;
+      box-shadow: 0 5px 20px rgba(30, 60, 114, 0.3);
+    }
+
+    /* 🔽 AQUÍ CAMBIA LA RUTA DEL LOGO DE LA UNA PUNO 🔽 */
+    .logo-unap {
+      content: url('logo_unap.png');
+    }
+    /* 🔼 Reemplaza "logo_unap.png" con el nombre de tu archivo del logo 🔼 */
+
+    .header-info {
+      flex-grow: 1;
+    }
+
+    .universidad {
+      color: #1e3c72;
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .facultad {
+      color: #2a5298;
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .escuela {
+      color: #555;
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    .curso-titulo {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .curso-titulo h1 {
+      font-size: 2.2em;
+      margin-bottom: 5px;
+    }
+
+    .curso-titulo p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    /* INFORMACIÓN ORGANIZADA */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .info-item {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 15px 20px;
+      border-radius: 10px;
+      border-left: 5px solid #1e3c72;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-item strong {
+      color: #1e3c72;
+      font-weight: 600;
+      min-width: 100px;
+    }
+
+    /* TABS MEJORADOS */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .tab-button {
+      background: white;
+      border: 2px solid transparent;
+      padding: 15px 35px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      color: #1e3c72;
+    }
+
+    .tab-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(30, 60, 114, 0.4);
+      border-color: #1e3c72;
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      border-color: white;
+    }
+
+    /* CONTENIDO */
+    .tab-content {
+      display: none;
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #1e3c72;
+      font-size: 2em;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #1e3c72;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h3 {
+      color: #2a5298;
+      font-size: 1.6em;
+      margin: 30px 0 20px;
+      padding-left: 15px;
+      border-left: 5px solid #2a5298;
+    }
+
+    p {
+      line-height: 1.9;
+      margin-bottom: 18px;
+      text-align: justify;
+      font-size: 1.05em;
+    }
+
+    /* LISTA DE TRABAJOS MEJORADA */
+    .lista-trabajos {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 15px;
+    }
+
+    .lista-trabajos li {
+      background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+      padding: 20px 25px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      border: 2px solid #e1e8ed;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .lista-trabajos li:hover {
+      transform: translateX(10px);
+      box-shadow: 0 5px 25px rgba(30, 60, 114, 0.3);
+      border-color: #1e3c72;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .lista-trabajos a {
+      color: #1e3c72;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.15em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lista-trabajos a:hover {
+      color: #2a5298;
+    }
+
+    .lista-trabajos .emoji {
+      font-size: 1.5em;
+      min-width: 30px;
+    }
+
+    /* VISION Y MISION */
+    .vision-mision {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: white;
+      margin: 0 0 20px 0;
+      padding: 0;
+      border: none;
+      font-size: 1.7em;
+    }
+
+    .card p {
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      color: white;
+      padding: 25px;
+      margin-top: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    footer p {
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-top {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .universidad {
+        font-size: 1.4em;
+      }
+
+      .facultad {
+        font-size: 1.1em;
+      }
+
+      .curso-titulo h1 {
+        font-size: 1.6em;
+      }
+
+      .tab-button {
+        padding: 12px 20px;
+        font-size: 1em;
+      }
+
+      .tab-content {
+        padding: 25px;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+    }
+
+    .descripcion-curso {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 25px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 5px solid #1e3c72;
+    }
   </style>
 </head>
 <body>
-  <div class="page">
-    <div class="card">
-      <div class="logo">UNA</div>
-      <h1>Universidad Nacional del Altiplano - Puno</h1>
-      <h2>Facultad de Ingeniería Estadística e Informática</h2>
-
-      <div class="big-title">Carátula del trabajo</div>
-
-      <div class="info">
-        <div class="left">
-          <div class="label">Curso</div>
-          <div class="value">Programación Numérica</div>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo-container">
+          <!-- 🔽 LOGO DE LA UNA PUNO 🔽 -->
+          <img src="logo_unap.png" alt="Logo UNA Puno" class="logo-unap">
+          <!-- 🔼 Cambia "logo_unap.png" por el nombre de tu archivo del logo 🔼 -->
         </div>
-
-        <div>
-          <div class="label">Docente</div>
-          <div class="value">Fred Torres Cruz</div>
-        </div>
-
-        <div>
-          <div class="label">Estudiante</div>
-          <div class="value">Wily Calib Caira Huancollo</div>
-        </div>
-
-        <div>
-          <div class="label">Departamento / Ciudad</div>
-          <div class="value">Puno - Perú</div>
-        </div>
-
-        <div>
-          <div class="label">Año</div>
-          <div class="value">2025</div>
-        </div>
-
-        <div>
-          <div class="label">Repositorio</div>
-          <div class="value"><a href="https://tu-repo-github.github.io/programacion-numerica/" target="_blank">Ver en GitHub</a></div>
+        <div class="header-info">
+          <div class="universidad">UNIVERSIDAD NACIONAL DEL ALTIPLANO PUNO</div>
+          <div class="facultad">Facultad de Ingeniería Estadística e Informática</div>
+          <div class="escuela">Escuela Profesional de Ingeniería Estadística e Informática</div>
         </div>
       </div>
 
-      <!-- sección de tareas -->
-      <div class="tasks">
-        <h3>📘 Tareas</h3>
-        <ul class="task-list">
-          <li>
-            <strong>Unidad 1:</strong> 
-            <a href="https://github.com/tu-usuario/programacion-numerica/tree/main/unidad1" target="_blank">Ver carpeta en GitHub</a> | 
-            <a href="https://wilycaira56-rgb.github.io/programacion-wily/tarea1.pdf" target="_blank">Ver Tarea 1 (PDF)</a>
-          </li>
-          <li>
-            <strong>Unidad 2:</strong> 
-            <a href="https://github.com/tu-usuario/programacion-numerica/tree/main/unidad2" target="_blank">Ver carpeta en GitHub</a> 
-            <!-- Aquí puedes añadir más PDFs cuando los subas -->
-          </li>
-        </ul>
+      <div class="curso-titulo">
+        <h1>PROGRAMACIÓN NUMÉRICA</h1>
+        <p>4° Semestre - Huancollo</p>
       </div>
 
-      <div class="footer">Diseñado para presentar trabajos del curso y organizar tareas por unidades. </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>👨‍🏫 Docente:</strong>
+          <span>FRED CRUZ TORRES</span>
+        </div>
+        <div class="info-item">
+          <strong>👨‍🎓 Estudiante:</strong>
+          <span>Wily Calib Caira Huancollo</span>
+        </div>
+        <div class="info-item">
+          <strong>🆔 Código:</strong>
+          <span>240450</span>
+        </div>
+        <div class="info-item">
+          <strong>📅 Semestre:</strong>
+          <span>4° Semestre</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TABS DE NAVEGACIÓN -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="mostrarTab('inicio')">🏠 Inicio</button>
+      <button class="tab-button" onclick="mostrarTab('unidad1')">📚 Unidad 1</button>
+      <button class="tab-button" onclick="mostrarTab('unidad2')">📖 Unidad 2</button>
     </div>
+
+    <!-- CONTENIDO INICIO -->
+    <div id="inicio" class="tab-content active">
+      <h2>📘 Acerca del Curso</h2>
+      
+      <div class="descripcion-curso">
+        <h3>¿Qué es la Programación Numérica?</h3>
+        <p>
+          La <strong>Programación Numérica</strong> es una disciplina fundamental en la ingeniería y las ciencias computacionales 
+          que se enfoca en el desarrollo e implementación de algoritmos computacionales para resolver problemas matemáticos 
+          mediante métodos numéricos. Este curso es esencial para la formación de ingenieros estadísticos e informáticos, 
+          ya que proporciona las herramientas necesarias para abordar problemas del mundo real que no tienen solución 
+          analítica exacta.
+        </p>
+      </div>
+
+      <h3>📊 Contenido del Curso</h3>
+      <p>
+        Durante el desarrollo del curso se estudian técnicas fundamentales como:
+      </p>
+      <ul style="line-height: 2; margin-left: 20px; margin-bottom: 20px;">
+        <li>🔢 Resolución de ecuaciones no lineales (Bisección, Newton-Raphson, Secante)</li>
+        <li>📈 Interpolación y aproximación de funciones</li>
+        <li>∫ Integración numérica (Método del Trapecio, Simpson)</li>
+        <li>📉 Solución de sistemas de ecuaciones lineales</li>
+        <li>🧮 Resolución de ecuaciones diferenciales ordinarias</li>
+        <li>💻 Implementación práctica mediante Python</li>
+      </ul>
+
+      <p>
+        Estas herramientas son indispensables en campos como la física computacional, la ingeniería, el análisis de datos, 
+        la economía cuantitativa, las ciencias de la computación y la estadística aplicada. La programación numérica 
+        permite obtener soluciones aproximadas precisas y eficientes para problemas complejos de la vida real.
+      </p>
+
+      <div class="vision-mision">
+        <div class="card">
+          <h3>🎯 Visión del Estudiante</h3>
+          <p>
+            Convertirme en un profesional altamente capacitado en el desarrollo de soluciones computacionales eficientes 
+            y precisas, aplicando métodos numéricos avanzados para resolver problemas complejos del mundo real. Aspiro 
+            a ser un referente en el campo de la computación científica, contribuyendo al avance tecnológico mediante 
+            la innovación, la investigación y la implementación de algoritmos optimizados que generen impacto positivo 
+            en la sociedad y la industria.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>🚀 Misión del Estudiante</h3>
+          <p>
+            Dominar los fundamentos teóricos y prácticos de la programación numérica, desarrollando habilidades sólidas 
+            en el análisis matemático y la implementación de algoritmos computacionales eficientes. Mi compromiso es 
+            aplicar estos conocimientos con responsabilidad, ética profesional y excelencia académica, manteniéndome 
+            en constante actualización y aprendizaje. Busco ser un agente de cambio que utilice la tecnología y los 
+            métodos numéricos para resolver problemas reales, contribuyendo al desarrollo científico y tecnológico de 
+            mi región y país.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO UNIDAD 1 -->
+    <div id="unidad1" class="tab-content">
+      <h2>📁 Unidad 1: Trabajos Realizados</h2>
+      
+      <section>
+        <h3>📝 Tareas y Proyectos</h3>
+        <ol class="lista-trabajos">
+          <!-- 🔽 AGREGA TUS LINKS AQUÍ - UNIDAD 1 🔽 -->
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">1️⃣</span>
+              <span>Método de Bisección</span>
+            </a>
+          </li>
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">2️⃣</span>
+              <span>Método de Newton-Raphson</span>
+            </a>
+          </li>
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">3️⃣</span>
+              <span>Método de Secante</span>
+            </a>
+          </li>
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">4️⃣</span>
+              <span>Informe Final (PDF)</span>
+            </a>
+          </li>
+          <!-- 🔼 Reemplaza "LINK_AQUI" con tus URLs reales de GitHub o Drive 🔼 -->
+        </ol>
+      </section>
+    </div>
+
+    <!-- CONTENIDO UNIDAD 2 -->
+    <div id="unidad2" class="tab-content">
+      <h2>📁 Unidad 2: Trabajos Realizados</h2>
+      
+      <section>
+        <h3>📝 Tareas y Proyectos</h3>
+        <ol class="lista-trabajos">
+          <!-- 🔽 AGREGA TUS LINKS AQUÍ - UNIDAD 2 🔽 -->
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">1️⃣</span>
+              <span>Interpolación de Lagrange</span>
+            </a>
+          </li>
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">2️⃣</span>
+              <span>Método de Simpson</span>
+            </a>
+          </li>
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">3️⃣</span>
+              <span>Ecuaciones Diferenciales</span>
+            </a>
+          </li>
+          <li>
+            <a href="LINK_AQUI" target="_blank">
+              <span class="emoji">4️⃣</span>
+              <span>Proyecto Final (PDF)</span>
+            </a>
+          </li>
+          <!-- 🔼 Reemplaza "LINK_AQUI" con tus URLs reales de GitHub o Drive 🔼 -->
+        </ol>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p><strong>© 2025 - Universidad Nacional del Altiplano Puno</strong></p>
+      <p>Escuela Profesional de Ingeniería Estadística e Informática</p>
+      <p>Estudiante: Wily Calib Caira Huancollo | Código: 240450 | 4° Semestre</p>
+      <p>Curso: Programación Numérica | Docente: Prof. Fred Cruz Torres</p>
+    </footer>
   </div>
+
+  <script>
+    function mostrarTab(tabId) {
+      // Ocultar todos los contenidos
+      const contenidos = document.querySelectorAll('.tab-content');
+      contenidos.forEach(contenido => {
+        contenido.classList.remove('active');
+      });
+
+      // Desactivar todos los botones
+      const botones = document.querySelectorAll('.tab-button');
+      botones.forEach(boton => {
+        boton.classList.remove('active');
+      });
+
+      // Activar el contenido y botón seleccionado
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 </body>
 </html>
