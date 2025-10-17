@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Programación Numérica - Wily Calib Caira</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,11 +24,7 @@
       100% { background-position: 0% 50%; }
     }
 
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
 
     /* HEADER CON LOGO */
     header {
@@ -43,328 +35,92 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .header-top {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      margin-bottom: 25px;
-      padding-bottom: 25px;
-      border-bottom: 3px solid #1e3c72;
-    }
-
-    .logo-container {
-      flex-shrink: 0;
-    }
-
+    .header-top { display:flex; align-items:center; gap:30px; margin-bottom:25px; padding-bottom:25px; border-bottom:3px solid #1e3c72; }
+    .logo-container { flex-shrink:0; }
     .logo-unap {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid #1e3c72;
-      object-fit: contain;
-      background: white;
-      padding: 5px;
-      box-shadow: 0 5px 20px rgba(30, 60, 114, 0.3);
+      width:120px; height:120px; border-radius:50%;
+      border:4px solid #1e3c72; object-fit:contain; background:white; padding:5px;
+      box-shadow: 0 5px 20px rgba(30,60,114,0.3);
     }
+    .logo-unap { content: url('logo_unap.png'); }
 
-    /* 🔽 AQUÍ CAMBIA LA RUTA DEL LOGO DE LA UNA PUNO 🔽 */
-    .logo-unap {
-      content: url('logo_unap.png');
-    }
-    /* 🔼 Reemplaza "logo_unap.png" con el nombre de tu archivo del logo 🔼 */
+    .header-info { flex-grow:1; }
+    .universidad { color:#1e3c72; font-size:1.8em; font-weight:bold; margin-bottom:8px; line-height:1.3; }
+    .facultad { color:#2a5298; font-size:1.3em; font-weight:600; margin-bottom:5px; }
+    .escuela { color:#555; font-size:1.1em; font-weight:500; }
 
-    .header-info {
-      flex-grow: 1;
-    }
+    .curso-titulo { background: linear-gradient(135deg,#1e3c72,#2a5298); color:white; padding:20px; border-radius:10px; text-align:center; margin:20px 0; }
+    .curso-titulo h1 { font-size:2.2em; margin-bottom:5px; }
+    .curso-titulo p { font-size:1.2em; opacity:0.9; margin:0; }
 
-    .universidad {
-      color: #1e3c72;
-      font-size: 1.8em;
-      font-weight: bold;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
+    .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px; margin:20px 0; }
+    .info-item { background: linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%); padding:15px 20px; border-radius:10px; border-left:5px solid #1e3c72; display:flex; align-items:center; gap:10px; }
+    .info-item strong { color:#1e3c72; font-weight:600; min-width:100px; }
 
-    .facultad {
-      color: #2a5298;
-      font-size: 1.3em;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .escuela {
-      color: #555;
-      font-size: 1.1em;
-      font-weight: 500;
-    }
-
-    .curso-titulo {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .curso-titulo h1 {
-      font-size: 2.2em;
-      margin-bottom: 5px;
-    }
-
-    .curso-titulo p {
-      font-size: 1.2em;
-      opacity: 0.9;
-      margin: 0;
-    }
-
-    /* INFORMACIÓN ORGANIZADA */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 15px;
-      margin: 20px 0;
-    }
-
-    .info-item {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      padding: 15px 20px;
-      border-radius: 10px;
-      border-left: 5px solid #1e3c72;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .info-item strong {
-      color: #1e3c72;
-      font-weight: 600;
-      min-width: 100px;
-    }
-
-    /* TABS MEJORADOS */
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 25px;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-    }
-
+    /* TABS */
+    .tabs { display:flex; gap:10px; margin-bottom:25px; justify-content:center; flex-wrap:wrap; background:rgba(255,255,255,0.1); padding:15px; border-radius:15px; backdrop-filter:blur(10px); }
     .tab-button {
-      background: white;
-      border: 2px solid transparent;
-      padding: 15px 35px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.1em;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      color: #1e3c72;
+      background:white; border:2px solid transparent; padding:15px 35px; border-radius:10px; cursor:pointer; font-size:1.1em; font-weight:600; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.2); color:#1e3c72;
     }
+    .tab-button:hover { transform:translateY(-3px); box-shadow:0 6px 25px rgba(30,60,114,0.4); border-color:#1e3c72; }
+    .tab-button.active { background: linear-gradient(135deg,#1e3c72,#2a5298); color:white; border-color:white; }
 
-    .tab-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(30, 60, 114, 0.4);
-      border-color: #1e3c72;
-    }
+    /* TAB CONTENT */
+    .tab-content { display:none; background:white; border-radius:15px; padding:40px; box-shadow:0 10px 40px rgba(0,0,0,0.3); animation:fadeIn 0.5s ease; }
+    .tab-content.active { display:block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(20px);} to { opacity:1; transform:translateY(0);} }
 
-    .tab-button.active {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      border-color: white;
-    }
+    h2 { color:#1e3c72; font-size:2em; margin-bottom:25px; padding-bottom:15px; border-bottom:3px solid #1e3c72; display:flex; align-items:center; gap:10px; }
+    h3 { color:#2a5298; font-size:1.6em; margin:30px 0 20px; padding-left:15px; border-left:5px solid #2a5298; }
+    p { line-height:1.9; margin-bottom:18px; text-align:justify; font-size:1.05em; }
 
-    /* CONTENIDO */
-    .tab-content {
-      display: none;
-      background: white;
-      border-radius: 15px;
-      padding: 40px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 0.5s ease;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h2 {
-      color: #1e3c72;
-      font-size: 2em;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 3px solid #1e3c72;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    h3 {
-      color: #2a5298;
-      font-size: 1.6em;
-      margin: 30px 0 20px;
-      padding-left: 15px;
-      border-left: 5px solid #2a5298;
-    }
-
-    p {
-      line-height: 1.9;
-      margin-bottom: 18px;
-      text-align: justify;
-      font-size: 1.05em;
-    }
-
-    /* LISTA DE TRABAJOS MEJORADA */
-    .lista-trabajos {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      gap: 15px;
-    }
-
+    /* LISTA DE TRABAJOS */
+    .lista-trabajos { list-style:none; padding:0; display:grid; gap:15px; }
     .lista-trabajos li {
-      background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
-      padding: 20px 25px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      border: 2px solid #e1e8ed;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg,#ffffff 0%,#f5f7fa 100%);
+      padding:20px 25px; border-radius:12px; transition:all 0.3s ease; border:2px solid #e1e8ed; box-shadow:0 3px 10px rgba(0,0,0,0.1);
     }
+    .lista-trabajos li:hover { transform: translateX(10px); box-shadow:0 5px 25px rgba(30,60,114,0.3); border-color:#1e3c72; background: linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%); }
+    .lista-trabajos a { color:#1e3c72; text-decoration:none; font-weight:600; font-size:1.15em; display:flex; align-items:center; gap:12px; }
+    .lista-trabajos a:hover { color:#2a5298; }
+    .lista-trabajos .emoji { font-size:1.5em; min-width:30px; }
 
-    .lista-trabajos li:hover {
-      transform: translateX(10px);
-      box-shadow: 0 5px 25px rgba(30, 60, 114, 0.3);
-      border-color: #1e3c72;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* BOTONES PARA CADA TRABAJO (nuevo) */
+    .work-buttons { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+    .work-buttons .btn {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 16px; border-radius:10px; font-weight:700; text-decoration:none;
+      box-shadow: 0 6px 20px rgba(30,60,114,0.12);
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+      color: white;
     }
-
-    .lista-trabajos a {
-      color: #1e3c72;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.15em;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .work-buttons .btn.code {
+      background: linear-gradient(135deg,#16a085,#1abc9c); /* verde-menta */
     }
-
-    .lista-trabajos a:hover {
-      color: #2a5298;
+    .work-buttons .btn.pdf {
+      background: linear-gradient(135deg,#007bff,#0056b3); /* azul */
     }
-
-    .lista-trabajos .emoji {
-      font-size: 1.5em;
-      min-width: 30px;
-    }
+    .work-buttons .btn:hover { transform: translateY(-4px); box-shadow:0 12px 30px rgba(30,60,114,0.18); opacity:0.98; }
 
     /* VISION Y MISION */
-    .vision-mision {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 25px;
-      margin: 30px 0;
-    }
-
-    .card {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      color: white;
-      margin: 0 0 20px 0;
-      padding: 0;
-      border: none;
-      font-size: 1.7em;
-    }
-
-    .card p {
-      text-align: left;
-      line-height: 1.8;
-    }
+    .vision-mision { display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:25px; margin:30px 0; }
+    .card { background: linear-gradient(135deg,#1e3c72,#2a5298); color:white; padding:30px; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.3); transition:transform 0.3s ease; }
+    .card:hover { transform:translateY(-5px); }
+    .card h3 { color:white; margin:0 0 20px 0; padding:0; border:none; font-size:1.7em; }
+    .card p { text-align:left; line-height:1.8; }
 
     /* FOOTER */
-    footer {
-      text-align: center;
-      color: white;
-      padding: 25px;
-      margin-top: 40px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    footer p {
-      margin: 8px 0;
-      text-align: center;
-    }
+    footer { text-align:center; color:white; padding:25px; margin-top:40px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.2); }
+    footer p { margin:8px 0; text-align:center; }
 
     /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .header-top {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .universidad {
-        font-size: 1.4em;
-      }
-
-      .facultad {
-        font-size: 1.1em;
-      }
-
-      .curso-titulo h1 {
-        font-size: 1.6em;
-      }
-
-      .tab-button {
-        padding: 12px 20px;
-        font-size: 1em;
-      }
-
-      .tab-content {
-        padding: 25px;
-      }
-
-      h2 {
-        font-size: 1.6em;
-      }
+    @media (max-width:768px) {
+      .header-top { flex-direction:column; text-align:center; }
+      .universidad { font-size:1.4em; } .facultad { font-size:1.1em; } .curso-titulo h1 { font-size:1.6em; }
+      .tab-button { padding:12px 20px; font-size:1em; } .tab-content { padding:25px; } h2 { font-size:1.6em; }
     }
 
-    .descripcion-curso {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      padding: 25px;
-      border-radius: 12px;
-      margin: 20px 0;
-      border-left: 5px solid #1e3c72;
-    }
+    .descripcion-curso { background: linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%); padding:25px; border-radius:12px; margin:20px 0; border-left:5px solid #1e3c72; }
   </style>
 </head>
 <body>
@@ -375,7 +131,6 @@
         <div class="logo-container">
           <!-- 🔽 LOGO DE LA UNA PUNO 🔽 -->
           <img src="logo_unap.png" alt="Logo UNA Puno" class="logo-unap">
-          <!-- 🔼 Cambia "logo_unap.png" por el nombre de tu archivo del logo 🔼 -->
         </div>
         <div class="header-info">
           <div class="universidad">UNIVERSIDAD NACIONAL DEL ALTIPLANO PUNO</div>
@@ -435,7 +190,7 @@
       <p>
         Durante el desarrollo del curso se estudian técnicas fundamentales como:
       </p>
-      <ul style="line-height: 2; margin-left: 20px; margin-bottom: 20px;">
+      <ul style="line-height:2; margin-left:20px; margin-bottom:20px;">
         <li>🔢 Resolución de ecuaciones no lineales (Bisección, Newton-Raphson, Secante)</li>
         <li>📈 Interpolación y aproximación de funciones</li>
         <li>∫ Integración numérica (Método del Trapecio, Simpson)</li>
@@ -483,42 +238,62 @@
       <section>
         <h3>📝 Tareas y Proyectos</h3>
         <ol class="lista-trabajos">
-          <tarea_1(1).pdf>
           <li>
             <a href="tarea_1 (1).pdf" target="_blank">
               <span class="emoji">1️⃣</span>
               <span>IDENTIFICADOR</span>
             </a>
+            <div class="work-buttons">
+              <a class="btn code" href="tarea_1_(1).py" download>💻 Ver código</a>
+              <a class="btn pdf" href="tarea_1 (1).pdf" target="_blank">📄 Ver PDF</a>
+            </div>
           </li>
+
           <li>
             <a href="MN.pdf" target="_blank">
               <span class="emoji">2️⃣</span>
               <span>Método de Newton-Raphson</span>
             </a>
+            <div class="work-buttons">
+              <a class="btn code" href="MN.py" download>💻 Ver código</a>
+              <a class="btn pdf" href="MN.pdf" target="_blank">📄 Ver PDF</a>
+            </div>
           </li>
+
           <li>
             <a href="pdf grafica de funciones.pdf" target="_blank">
-              <span class="emoji">3</span>
+              <span class="emoji">3️⃣</span>
               <span>Grafica de funciones</span>
             </a>
+            <div class="work-buttons">
+              <a class="btn code" href="pdf_grafica_de_funciones.py" download>💻 Ver código</a>
+              <a class="btn pdf" href="pdf grafica de funciones.pdf" target="_blank">📄 Ver PDF</a>
+            </div>
           </li>
-             <li>
+
+          <li>
             <a href="ejercicios_resueltos_programacion_numerica.pdf" target="_blank">
-              <span class="emoji">4</span>
-              <span>ejercicios resueltos
-              </span>
+              <span class="emoji">4️⃣</span>
+              <span>Ejercicios resueltos</span>
             </a>
+            <div class="work-buttons">
+              <a class="btn code" href="ejercicios_resueltos_programacion_numerica.py" download>💻 Ver código</a>
+              <a class="btn pdf" href="ejercicios_resueltos_programacion_numerica.pdf" target="_blank">📄 Ver PDF</a>
+            </div>
           </li>
-             <li>
+
+          <li>
             <a href="PROG.pdf" target="_blank">
-              <span class="emoji">5</span>
-              <span>metodo biseccion
-              </span>
+              <span class="emoji">5️⃣</span>
+              <span>Método Bisección</span>
             </a>
+            <div class="work-buttons">
+              <a class="btn code" href="PROG.py" download>💻 Ver código</a>
+              <a class="btn pdf" href="PROG.pdf" target="_blank">📄 Ver PDF</a>
+            </div>
           </li>
-         
-          
-          <!-- 🔼 Reemplaza "LINK_AQUI" con tus URLs reales de GitHub o Drive 🔼 -->
+
+          <!-- Puedes duplicar / añadir más li conforme agregues más trabajos -->
         </ol>
       </section>
     </div>
@@ -530,7 +305,6 @@
       <section>
         <h3>📝 Tareas y Proyectos</h3>
         <ol class="lista-trabajos">
-          <!-- 🔽 AGREGA TUS LINKS AQUÍ - UNIDAD 2 🔽 -->
           <li>
             <a href="LINK_AQUI" target="_blank">
               <span class="emoji">1️⃣</span>
@@ -555,7 +329,6 @@
               <span>Proyecto Final (PDF)</span>
             </a>
           </li>
-          <!-- 🔼 Reemplaza "LINK_AQUI" con tus URLs reales de GitHub o Drive 🔼 -->
         </ol>
       </section>
     </div>
@@ -564,7 +337,7 @@
     <footer>
       <p><strong>© 2025 - Universidad Nacional del Altiplano Puno</strong></p>
       <p>Escuela Profesional de Ingeniería Estadística e Informática</p>
-      <p>Estudiante: Wily Calib Caira Huancollo | Código: 240450 | 4° Semestre</p>
+      <p>Estudiante: Wily Calib Caira Huancullo | Código: 240450 | 4° Semestre</p>
       <p>Curso: Programación Numérica | Docente: Prof. Fred Cruz Torres</p>
     </footer>
   </div>
@@ -573,19 +346,18 @@
     function mostrarTab(tabId) {
       // Ocultar todos los contenidos
       const contenidos = document.querySelectorAll('.tab-content');
-      contenidos.forEach(contenido => {
-        contenido.classList.remove('active');
-      });
+      contenidos.forEach(contenido => contenido.classList.remove('active'));
 
       // Desactivar todos los botones
       const botones = document.querySelectorAll('.tab-button');
-      botones.forEach(boton => {
-        boton.classList.remove('active');
-      });
+      botones.forEach(boton => boton.classList.remove('active'));
 
       // Activar el contenido y botón seleccionado
       document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
+      // usar event de forma segura:
+      if (window.event && window.event.target) {
+        window.event.target.classList.add('active');
+      }
     }
   </script>
 </body>
